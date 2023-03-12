@@ -107,13 +107,12 @@ const countByCity = async (req, res, next) => {
   }
 };
 
-module.exports;
-{
+module.exports = {
   countByCity,
-    countByType,
-    createHotel,
-    deleteHotel,
-    updateHotel,
-    getAllHotels,
-    getSingleHotel;
-}
+  countByType,
+  createHotel,
+  deleteHotel,
+  updateHotel,
+  getAllHotels,
+  getSingleHotel,
+};

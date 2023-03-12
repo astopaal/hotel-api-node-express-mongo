@@ -1,4 +1,7 @@
 const express = require("express");
+const router = express.Router();
+
+const { verifyAdmin } = require("../middlewares/verify.js");
 
 const {
   countByCity,
@@ -10,13 +13,11 @@ const {
   getSingleHotel,
 } = require("../contollers/hotel.js");
 
-const router = express.Router();
-
 router.get("/countByCity", countByCity);
 router.get("/countByType", countByType);
-router.post("/createHotel", createHotel);
-router.delete("/deleteHotel/:id", deleteHotel);
-router.put("/updateHotel/:id", updateHotel);
+router.post("/createHotel", verifyAdmin, createHotel);
+router.delete("/deleteHotel/:id", verifyAdmin, deleteHotel);
+router.put("/updateHotel/:id", verifyAdmin, updateHotel);
 router.get("/getSingleHotel/:id", getSingleHotel);
 router.get("/getAllHotels", getAllHotels);
 

@@ -26,3 +26,41 @@ const updateRoom = async (req, res, next) => {
     res.status(500).json({ message: error });
   }
 };
+
+const deleteRoom = async (req, res, next) => {
+  const roomId = req.params.id;
+  const hotelId = req.param.hotelId;
+  try {
+    const room = await Room.findByIdAndDelete(roomId);
+    await Hotel.findByIdAndUpdate(hotel, { $pull: { rooms: roomId } });
+    res.status(200).json({ message: "Delete successful." });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
+const getRoomDetailById = async (req, res, next) => {
+  try {
+    const room = await Room.findById(req.params.id);
+    res.status(200).json(room);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getAllRooms = async (req, res, next) => {
+  try {
+    const room = await Room.find();
+    res.status(200).json(room);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getRoomDetailById,
+  getAllRooms,
+  createRoom,
+  deleteRoom,
+  updateRoom,
+};
